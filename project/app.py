@@ -11,6 +11,8 @@ res_file_path = './results.xml'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
 }
+visitedList = []
+includingLevel = 8
 root = ET.Element('data')
 
 def indent(elem, level=0):
@@ -50,6 +52,7 @@ def get_html(link):
 
 def parse(html):
     results = []
+    urlsList=[]
 
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -59,12 +62,18 @@ def parse(html):
             if re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$)", email) != None:
                 return email
 
+    def validateUrl(url):
+        if re.match('https?://(?:www)?(?:[\w-]{2,255}(?:\.\w{2,6}){1,2})(?:/[\w&%?#-]{1,300})?', url):
+            return url
+
     def deep(parent):
         for el in parent.find_all('a'):
             if el:
                 if (el.string != None):
                     if (validateEmail(el.string) != None):
                         results.append(el.string)
+                    if (validateUrl(str(el.get('href'))) != None):
+                        urlsList.append(validateUrl(el.get('href')))
 
         for el in parent.find_all('p'):
             if el:
@@ -78,6 +87,7 @@ def parse(html):
                                 if (validateEmail(myStr) != None):
                                     results.append(myStr)
                 else:
+                    # TODO change split for smth else to parse it properly
                     text = el.get_text()
                     if (len(text) != 0):
                         for myStr in text.split(' '):
@@ -90,6 +100,11 @@ def parse(html):
                                         results.append(myStr)
 
     deep(soup)
+    for i in urlsList:
+        if not (i in visitedList) and len(visitedList) < includingLevel:
+            visitedList.append(i)
+            # print(i, len(visitedList))
+            compose(parse,get_html,trim)(i)
     for i in results:
         ET.SubElement(res, 'email').text = str(i)
     return results
@@ -99,6 +114,7 @@ for link in tree.findall('url'):
         res = ET.SubElement(root, 'result')
         ET.SubElement(res, 'url').text = link.text
         # print (link.text)
+        visitedList.clear()
         compose(parse, get_html, trim)(link.text)
 
 indent(root)
