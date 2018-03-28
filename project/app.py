@@ -10,6 +10,21 @@ headers = {
 }
 root = ET.Element('data')
 
+def indent(elem, level=0):
+  i = "\n" + level*"  "
+  if len(elem):
+    if not elem.text or not elem.text.strip():
+      elem.text = i + "  "
+    if not elem.tail or not elem.tail.strip():
+      elem.tail = i
+    for elem in elem:
+      indent(elem, level+1)
+    if not elem.tail or not elem.tail.strip():
+      elem.tail = i
+  else:
+    if level and (not elem.tail or not elem.tail.strip()):
+      elem.tail = i
+
 def save_response(link, res):
     name = urlparse(link)
     open(html_files_path + '{}.html'.format(name[1] + name[2].replace('/', '-')), 'w').write(res)
@@ -18,10 +33,10 @@ def get_html(link):
     try:
         response = requests.get(link, headers=headers)
         html = str(response.text)
-        save_response(link, html)
+        # save_response(link, html)
         return html
     except requests.exceptions.RequestException as err:
-        save_response(link, str(err))
+        # save_response(link, str(err))
         return str(err)
 
 tree = ET.parse(links_file_path).getroot()
@@ -31,5 +46,6 @@ for link in tree.findall('url'):
         # print (link.text)
         get_html(link.text)
 
+indent(root)
 resTree = ET.ElementTree(root)
 resTree.write(res_file_path)

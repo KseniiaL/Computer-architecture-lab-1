@@ -1,1 +1,14 @@
-<data><result><url>https://www.grammarly.com/contact</url></result><result><url>http://www.dataart.com/clients/contact</url></result><result><url>https://sigma.software/about/our-offices</url></result><result><url>https://www.globallogic.com/ua/contact-us/</url></result></data>
+<data>
+  <result>
+    <url>https://www.grammarly.com/contact</url>
+  </result>
+  <result>
+    <url>http://www.dataart.com/clients/contact</url>
+  </result>
+  <result>
+    <url>https://sigma.software/about/our-offices</url>
+  </result>
+  <result>
+    <url>https://www.globallogic.com/ua/contact-us/</url>
+  </result>
+</data>
