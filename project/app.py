@@ -55,6 +55,7 @@ def parse(html):
 
     def validateEmail(email):
         if len(email) > 7:
+            # TODO email like smth(at).gmail.com validation
             if re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$)", email) != None:
                 return email
 
@@ -64,6 +65,29 @@ def parse(html):
                 if (el.string != None):
                     if (validateEmail(el.string) != None):
                         results.append(el.string)
+
+        for el in parent.find_all('p'):
+            if el:
+                if (el.string != None):
+                    for myStr in el.string.split(' '):
+                        if (len(myStr) > 5):
+                            if (myStr[len(myStr)-1] == '.'):
+                                if (validateEmail(myStr[:-1]) != None):
+                                    results.append(myStr[:-1])
+                            else:
+                                if (validateEmail(myStr) != None):
+                                    results.append(myStr)
+                else:
+                    text = el.get_text()
+                    if (len(text) != 0):
+                        for myStr in text.split(' '):
+                            if (len(myStr) > 5):
+                                print('el:', myStr, 'res:', validateEmail(myStr[:-1]), validateEmail(myStr))
+                                if (validateEmail(myStr[:-1]) != None):
+                                    results.append(myStr[:-1])
+                                else:
+                                    if (validateEmail(myStr) != None):
+                                        results.append(myStr)
 
     deep(soup)
     for i in results:
