@@ -1,4 +1,5 @@
 import requests
+from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 links_file_path = './links.xml'
@@ -9,12 +10,18 @@ headers = {
 }
 root = ET.Element('data')
 
+def save_response(link, res):
+    name = urlparse(link)
+    open(html_files_path + '{}.html'.format(name[1] + name[2].replace('/', '-')), 'w').write(res)
+
 def get_html(link):
     try:
         response = requests.get(link, headers=headers)
         html = str(response.text)
+        save_response(link, html)
         return html
     except requests.exceptions.RequestException as err:
+        save_response(link, str(err))
         return str(err)
 
 tree = ET.parse(links_file_path).getroot()
