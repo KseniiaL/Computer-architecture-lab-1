@@ -9,10 +9,11 @@ links_file_path = './links.xml'
 html_files_path = './documents/'
 res_file_path = './results.xml'
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
+    'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
 }
 visitedList = []
-includingLevel = 5
+includingLevel = 10
 root = elTree.Element('data')
 
 
@@ -33,7 +34,9 @@ def indent(elem, level=0):
 
 
 def compose(*functions):
-    return functools.reduce(lambda f, g: lambda x: f(g(x)), functions, lambda x: x)
+    return functools.reduce(
+        lambda f, g: lambda x: f(g(x)), functions, lambda x: x
+    )
 
 
 def trim(string):
@@ -42,7 +45,9 @@ def trim(string):
 
 def save_response(file_link, result):
     name = urlparse(file_link)
-    open(html_files_path + '{}.html'.format(name[1] + name[2].replace('/', '-')), 'w').write(result)
+    open(
+        html_files_path + '{}.html'.format(name[1] + name[2].replace('/', '-')), 'w'
+    ).write(result)
 
 
 def get_html(file_link):
