@@ -58,8 +58,8 @@ def parse(html):
 
     def validateEmail(email):
         if len(email) > 7:
-            # TODO email like smth(at).gmail.com validation
-            if re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$)", email) != None:
+            if ((re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$)", email) != None) or
+                (re.match("[a-zA-Z0-9-.].+\(at\)([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$)", email) != None)):
                 return email
 
     def validateUrl(url):
@@ -114,6 +114,8 @@ for link in tree.findall('url'):
         print (link.text)
         visitedList.clear()
         compose(parse, get_html, trim)(link.text)
+
+
 
 indent(root)
 resTree = ET.ElementTree(root)
