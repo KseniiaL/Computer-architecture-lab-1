@@ -12,7 +12,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'
 }
 visitedList = []
-includingLevel = 8
+includingLevel = 5
 root = ET.Element('data')
 
 def indent(elem, level=0):
@@ -78,7 +78,7 @@ def parse(html):
         for el in parent.find_all('p'):
             if el:
                 if (el.string != None):
-                    for myStr in el.string.split(' '):
+                    for myStr in el.string.split():
                         if (len(myStr) > 5):
                             if (myStr[len(myStr)-1] == '.'):
                                 if (validateEmail(myStr[:-1]) != None):
@@ -87,12 +87,10 @@ def parse(html):
                                 if (validateEmail(myStr) != None):
                                     results.append(myStr)
                 else:
-                    # TODO change split for smth else to parse it properly
                     text = el.get_text()
                     if (len(text) != 0):
-                        for myStr in text.split(' '):
+                        for myStr in text.split():
                             if (len(myStr) > 5):
-                                print('el:', myStr, 'res:', validateEmail(myStr[:-1]), validateEmail(myStr))
                                 if (validateEmail(myStr[:-1]) != None):
                                     results.append(myStr[:-1])
                                 else:
@@ -103,7 +101,7 @@ def parse(html):
     for i in urlsList:
         if not (i in visitedList) and len(visitedList) < includingLevel:
             visitedList.append(i)
-            # print(i, len(visitedList))
+            print(i, len(visitedList))
             compose(parse,get_html,trim)(i)
     for i in results:
         ET.SubElement(res, 'email').text = str(i)
@@ -113,7 +111,7 @@ tree = ET.parse(links_file_path).getroot()
 for link in tree.findall('url'):
         res = ET.SubElement(root, 'result')
         ET.SubElement(res, 'url').text = link.text
-        # print (link.text)
+        print (link.text)
         visitedList.clear()
         compose(parse, get_html, trim)(link.text)
 

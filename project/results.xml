@@ -7,9 +7,6 @@
   </result>
   <result>
     <url>http://www.dataart.com/clients/contact</url>
-    <email>.@PeterVaihansk</email>
-    <email>.@DataAr</email>
-    <email>.@tobybryan</email>
     <email>SALES@DATAART.COM</email>
     <email>New-York@dataart.com</email>
     <email>UK-sales@dataart.com</email>
@@ -25,6 +22,10 @@
     <email>UK-sales@dataart.com</email>
     <email>CH-Sales@dataart.com</email>
     <email>DE-Sales@dataart.com</email>
+    <email>New-York@dataart.co</email>
+    <email>UK-Sales@dataart.co</email>
+    <email>CH-Sales@dataart.co</email>
+    <email>DE-Sales@dataart.co</email>
     <email>sales@dataart.com</email>
   </result>
   <result>
@@ -37,6 +38,7 @@
     <email>linda.malmgren@sigmaconnectivity.se</email>
     <email>haisam.moussa@sigmaconnectvity.se</email>
     <email>info@sigma.software</email>
+    <email>info@sigma.software</email>
   </result>
   <result>
     <url>https://www.globallogic.com/ua/contact-us/</url>
@@ -45,11 +47,16 @@
     <email>info@globallogic.com</email>
     <email>info@globallogic.com</email>
     <email>info@globallogic.com</email>
-    <email>info@globallogic.com</email>
-    <email>info@globallogic.com</email>
-    <email>info@globallogic.com</email>
-    <email>join.mykolaiv@globallogic.com</email>
-    <email>join.mykolaiv@globallogic.com</email>
+    <email>prmarketing-ua@globallogic.com</email>
+    <email>join.kyiv@globallogic.co</email>
+    <email>join.kharkiv@globallogic.co</email>
+    <email>join.lviv@globallogic.co</email>
+    <email>join.mykolaiv@globallogic.co</email>
+    <email>prmarketing-ua@globallogic.com</email>
+    <email>join.kyiv@globallogic.co</email>
+    <email>join.kharkiv@globallogic.co</email>
+    <email>join.lviv@globallogic.co</email>
+    <email>join.mykolaiv@globallogic.co</email>
     <email>info@globallogic.com</email>
   </result>
 </data>
